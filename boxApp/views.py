@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import ProductType
+from .models import ProductType, PC
 from .serializers import ProductType_serializer
 
 
@@ -50,5 +50,15 @@ def producttype_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['delete'])
+def test_tasks(request, task):
+    if task == 1:
+        result = PC.objects.filter(price__range=(300,  600))
+        for item in result:
+            print(item.model_id, item.speed, item.hd, item.price)
+
+    elif task == 2:
+        pass
 
 
+    return Response(status=status.HTTP_200_OK)
